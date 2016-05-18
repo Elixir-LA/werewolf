@@ -1,5 +1,10 @@
 # Werewolf! The multiplayer party game.
 
+![Slack Badge](http://santa-monica-elixir-slackin.herokuapp.com/badge.svg)
+[![Stories in Ready](https://badge.waffle.io/SantaMonicaElixir/werewolf.svg?label=ready&title=Stories%20In%20Ready)](http://waffle.io/SantaMonicaElixir/werewolf)
+
+__Project Board__: https://waffle.io/SantaMonicaElixir/werewolf
+
 ## Goals:
 
 This project will take our group through the parts of building out a Web-based, multiplayer party game. Our objectives as a group are to build a game that demonstrates Erlang and Elixir concepts through hands-on exercises!
