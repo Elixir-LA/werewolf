@@ -5,6 +5,10 @@
 
 __Project Board__: https://waffle.io/SantaMonicaElixir/werewolf
 
+__Meetup Group__: http://www.meetup.com/Santa-Monica-Elixir/
+
+__Group Home Page__: http://santamonicaelixir.github.io/
+
 ## Goals:
 
 This project will take our group through the parts of building out a Web-based, multiplayer party game. Our objectives as a group are to build a game that demonstrates Erlang and Elixir concepts through hands-on exercises!
