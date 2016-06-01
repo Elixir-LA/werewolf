@@ -9,6 +9,5 @@ config :werewolf, Werewolf.Endpoint,
 # Configure your database
 config :werewolf, Werewolf.Repo,
   adapter: Ecto.Adapters.Postgres,
-	url: System.get_env("DATABASE_URL"),
-  database: "werewolf_prod",
+  url: System.get_env("DATABASE_URL"),
   size: 20 # The amount of database connections in the pool
