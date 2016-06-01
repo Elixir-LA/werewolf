@@ -15,6 +15,10 @@ erl_crash.dump
 # this depending on your deployment strategy.
 /priv/static/
 
+# Ignore Travis build assets
+*.tar.bz2
+*.zip
+
 # The config/prod.secret.exs file by default contains sensitive
 # data and you should not commit it into version control.
 #
