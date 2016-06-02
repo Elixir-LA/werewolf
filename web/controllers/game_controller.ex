@@ -1,3 +1,5 @@
+require IEx
+
 defmodule Werewolf.GameController do
   use Werewolf.Web, :controller
 
@@ -29,8 +31,15 @@ defmodule Werewolf.GameController do
   end
 
   def show(conn, %{"id" => id}) do
-    game = Repo.get!(Game, id)
-    render(conn, "show.html", game: game)
+    game = Repo.get_by(Game, slug: id)
+
+    case game do
+      %Game{} ->
+        render(conn, "show.html", game: game)
+      _ ->
+        game = Repo.get(Game, id)
+        render(conn, "show.html", game: game)
+    end
   end
 
   def edit(conn, %{"id" => id}) do
