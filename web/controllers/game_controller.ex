@@ -37,8 +37,15 @@ defmodule Werewolf.GameController do
       %Game{} ->
         render(conn, "show.html", game: game)
       _ ->
-        game = Repo.get(Game, id)
-        render(conn, "show.html", game: game)
+        game = Repo.get!(Game, id)
+        case game do
+          %Game{} ->
+            render(conn, "show.html", game: game)
+          _ ->
+            conn
+            |> put_status(:not_found)
+            |> render(Werewolf.ErrorView, "404.html")
+        end
     end
   end
 

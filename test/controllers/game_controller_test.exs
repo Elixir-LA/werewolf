@@ -32,6 +32,12 @@ defmodule Werewolf.GameControllerTest do
     assert html_response(conn, 200) =~ "Show game"
   end
 
+  test "finds Game by slug" do
+    game = Repo.insert! %Game{slug: "asdf"}
+    conn = get conn, game_path(conn, :show, "asdf")
+    assert html_response(conn, 200) =~ "Show game"
+  end
+
   test "renders page not found when id is nonexistent", %{conn: conn} do
     assert_error_sent 404, fn ->
       get conn, game_path(conn, :show, -1)
