@@ -32,8 +32,10 @@ defmodule Werewolf.ChannelCase do
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Werewolf.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Werewolf.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(Werewolf.Repo, {:shared, self()})
     end
 
     :ok

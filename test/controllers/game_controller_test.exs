@@ -2,6 +2,7 @@ defmodule Werewolf.GameControllerTest do
   use Werewolf.ConnCase
 
   alias Werewolf.Game
+
   @valid_attrs %{slug: "some content"}
   @invalid_attrs %{}
 
@@ -32,8 +33,8 @@ defmodule Werewolf.GameControllerTest do
     assert html_response(conn, 200) =~ "Show game"
   end
 
-  test "finds Game by slug" do
-    game = Repo.insert! %Game{slug: "asdf"}
+  test "finds Game by slug", %{conn: conn} do
+    Repo.insert! %Game{slug: "asdf"}
     conn = get conn, game_path(conn, :show, "asdf")
     assert html_response(conn, 200) =~ "Show game"
   end

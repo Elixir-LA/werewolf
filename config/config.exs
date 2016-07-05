@@ -8,11 +8,13 @@ use Mix.Config
 # Configures the endpoint
 config :werewolf, Werewolf.Endpoint,
   url: [host: "localhost"],
-  root: Path.dirname(__DIR__),
   secret_key_base: "hnv4bZ9fiX4/3O5VWpEe8EjaZWSrFXUtCW6LhrXl626bAo0rBSwiBTkMHho7vOPY",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: Werewolf.PubSub,
            adapter: Phoenix.PubSub.PG2]
+
+config :werewolf,
+  ecto_repos: [Werewolf.Repo]
 
 # Configures Elixir's Logger
 config :logger, :console,
