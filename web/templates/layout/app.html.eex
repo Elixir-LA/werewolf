@@ -14,12 +14,9 @@
   <body>
     <div class="container">
       <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
+        <div class="jumbotron">
+          <h2>Werewolf</h2>
+        </div>
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
@@ -28,6 +25,11 @@
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
+
+      <footer class="footer">
+        A project by the <a href="http://www.meetup.com/Santa-Monica-Elixir-Meetup/">Santa Monica Elixir Meetup</a>.
+        Check out the <a href="https://github.com/santamonicaelixir/werewolf">source code</a>.
+      </footer>
 
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

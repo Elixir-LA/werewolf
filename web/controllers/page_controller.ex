@@ -1,7 +1,10 @@
 defmodule Werewolf.PageController do
   use Werewolf.Web, :controller
+  alias Werewolf.Game
 
   def index(conn, _params) do
-    render conn, "index.html"
+    conn
+    |> assign(:changeset, Game.changeset(%Game{}))
+    |> render("index.html")
   end
 end

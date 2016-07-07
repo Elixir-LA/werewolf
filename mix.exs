@@ -37,6 +37,8 @@ defmodule Werewolf.Mixfile do
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
+     {:hashids, "~> 2.0"},
+     {:timex, "~> 2.0"},
      {:cowboy, "~> 1.0"}]
   end
 

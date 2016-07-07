@@ -7,8 +7,8 @@ defmodule Werewolf.Game do
     timestamps
   end
 
-  @required_fields ~w(slug)
-  @optional_fields ~w()
+  @required_fields ~w()
+  @optional_fields ~w(slug)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

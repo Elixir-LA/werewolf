@@ -39,4 +39,6 @@ config :werewolf, Werewolf.Repo,
   password: "postgres",
   database: "werewolf_dev",
   hostname: "localhost",
+  port: System.get_env("PGPORT") || 5432,
   pool_size: 10
+

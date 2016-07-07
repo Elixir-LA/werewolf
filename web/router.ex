@@ -19,6 +19,7 @@ defmodule Werewolf.Router do
     get "/", PageController, :index
     resources "/games", GameController
     resources "/users", UserController
+    resources "/login", GameStartController, only: [:create]
   end
 
   # Other scopes may use custom stacks.
