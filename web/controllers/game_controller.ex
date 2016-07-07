@@ -32,15 +32,15 @@ defmodule Werewolf.GameController do
 
   def show(conn, %{"id" => id}) do
     game = Repo.get_by(Game, slug: id)
-
+    user_name = get_session(conn, :user_name)
     case game do
       %Game{} ->
-        render(conn, "show.html", game: game)
+        render(conn, "show.html", game: game, user_name: user_name)
       _ ->
         game = Repo.get!(Game, id)
         case game do
           %Game{} ->
-            render(conn, "show.html", game: game)
+            render(conn, "show.html", game: game, user_name: user_name)
           _ ->
             conn
             |> put_status(:not_found)
