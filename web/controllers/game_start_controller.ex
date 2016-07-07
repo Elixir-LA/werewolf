@@ -1,13 +1,10 @@
 defmodule Werewolf.GameStartController do
   use Werewolf.Web, :controller
 
-  use Timex
   alias Werewolf.Game
   alias Werewolf.User
 
   def create(conn, params) do
-    IO.inspect params
-
     changeset = Game.changeset(%Game{slug: generate_slug})
 
     case Repo.insert(changeset) do
@@ -21,7 +18,8 @@ defmodule Werewolf.GameStartController do
   end
 
   defp generate_slug do
-    Date.now(:secs)
+    #Date.now(:secs)
+    :rand.uniform(1000000)
     |> generate_hash
   end
 
