@@ -16,4 +16,5 @@ config :werewolf, Werewolf.Repo,
   password: "postgres",
   database: "werewolf_test",
   hostname: "localhost",
+  port: System.get_env("PGPORT") || 5432,
   pool: Ecto.Adapters.SQL.Sandbox
