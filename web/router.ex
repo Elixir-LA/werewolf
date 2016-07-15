@@ -20,6 +20,7 @@ defmodule Werewolf.Router do
     resources "/games", GameController
     resources "/users", UserController
     resources "/login", GameStartController, only: [:create]
+    resources "/join", SessionController, only: [:create]
   end
 
   # Other scopes may use custom stacks.

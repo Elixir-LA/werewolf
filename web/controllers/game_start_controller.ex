@@ -1,27 +1,25 @@
 defmodule Werewolf.GameStartController do
   use Werewolf.Web, :controller
 
-  use Timex
   alias Werewolf.Game
-  alias Werewolf.User
 
-  def create(conn, params) do
-    IO.inspect params
-
+  def create(conn, %{"game" => %{"slug" => user_name}}) do
     changeset = Game.changeset(%Game{slug: generate_slug})
 
     case Repo.insert(changeset) do
-      {:ok, _game} ->
+      {:ok, game} ->
         conn
         |> put_flash(:info, "Game created successfully.")
-        |> redirect(to: game_path(conn, :index))
+        |> put_session(:user_name, user_name)
+        |> redirect(to: game_path(conn, :show, game.slug))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
   defp generate_slug do
-    Date.now(:secs)
+    #Date.now(:secs)
+    :rand.uniform(1000000)
     |> generate_hash
   end
 
@@ -33,4 +31,3 @@ defmodule Werewolf.GameStartController do
     Hashids.encode(hashids, id)
   end
 end
-

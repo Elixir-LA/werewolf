@@ -5,6 +5,7 @@
   <li>
     <strong>Slug:</strong>
     <%= @game.slug %>
+    <%= user_message(@user_name) %>
   </li>
 
 </ul>

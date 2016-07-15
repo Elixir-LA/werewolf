@@ -7,7 +7,7 @@
       <%= label f, :name, class: "control-label" do %>
         Player Name
       <% end %>
-      <%= text_input f, :slug, class: "form-control" %>
+      <%= text_input f, :name, class: "form-control" %>
       <%= error_tag f, :name %>
     </div>
     <div class="form-group">
@@ -17,5 +17,24 @@
   </div>
 
   <div class="col-lg-6">
+    <%= form_for @changeset, session_path(@conn, :create), fn f -> %>
+    <div class="form-group">
+      <%= label f, :slug, class: "control-label" do %>
+        Game ID
+      <% end %>
+      <%= text_input f, :slug, class: "form-control" %>
+      <%= error_tag f, :slug %>
+    </div>
+    <div class="form-group">
+      <%= label f, :name, class: "control-label" do %>
+        Player Name
+      <% end %>
+      <%= text_input f, :name, class: "form-control" %>
+      <%= error_tag f, :name %>
+    </div>
+    <div class="form-group">
+      <%= submit "Join Game", class: "btn btn-primary" %>
+    </div>
+    <% end %>
   </div>
 </div>
