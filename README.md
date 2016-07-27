@@ -38,6 +38,11 @@ as another teammate gives their approval (often through a "+1" or "LGTM"
 (Looks Good To Me) comment, the PR submitter may click the Merge button
 on the Github PR user interface.
 
+#### TDD
+
+It helps to run tests with the `mix test.watch` runner, which runs
+tests when files change.
+
 ### Deployment Process
 
 This project deploys off of the `master` branch.
