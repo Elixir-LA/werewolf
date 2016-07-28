@@ -3,8 +3,8 @@ defmodule Werewolf.Mixfile do
 
   def project do
     [app: :werewolf,
-     version: "0.0.1",
-     elixir: "~> 1.0",
+     version: "0.0.3",
+     elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -36,6 +36,7 @@ defmodule Werewolf.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:mix_test_watch, "~> 0.2", only: :dev},
      {:gettext, "~> 0.9"},
      {:hashids, "~> 2.0"},
      {:timex, "~> 2.0"},

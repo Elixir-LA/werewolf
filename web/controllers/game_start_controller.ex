@@ -3,7 +3,7 @@ defmodule Werewolf.GameStartController do
 
   alias Werewolf.Game
 
-  def create(conn, %{"game" => %{"slug" => user_name}}) do
+  def create(conn, %{"game" => %{"name" => user_name}}) do
     changeset = Game.changeset(%Game{slug: generate_slug})
 
     case Repo.insert(changeset) do
@@ -18,7 +18,6 @@ defmodule Werewolf.GameStartController do
   end
 
   defp generate_slug do
-    #Date.now(:secs)
     :rand.uniform(1000000)
     |> generate_hash
   end
