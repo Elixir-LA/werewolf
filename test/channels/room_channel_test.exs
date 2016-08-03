@@ -11,4 +11,9 @@ defmodule Werewolf.RoomChannelTest do
     {:ok, socket: socket}
   end
 
+  test "message:new broadcasts to room:lobby", %{socket: socket} do
+    push socket, "message:new", "Hello!"
+    assert_broadcast "message:new", %{ body: "Hello!", user: "bilbo"}
+  end
+
 end
