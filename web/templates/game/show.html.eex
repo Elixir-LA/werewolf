@@ -1,14 +1,24 @@
-<h2>Show game</h2>
-
-<ul>
-
-  <li>
-    <strong>Slug:</strong>
-    <%= @game.slug %>
+<h2>Welcome to game: <%= @game.slug %></h2>
+<div class="row">
+  <div class="col-md-12 alert alert-info">
     <%= user_message(@user_name) %>
-  </li>
+  </div>
+  
+  <div class="col-md-8">
+    <h2>Chat Messages</h2>
+    <%= if @user_name do %>
+      <input type="text" id="NewMessage" placeholder="Type and press enter..." class="form-control">
+    <% end %>
+    <ul id="MessageList" class="list-unstyled"></ul>
+  </div>
 
-</ul>
+  <div  class="col-md-4">
+    <h2>Who’s Online</h2>
+    <ul id="UserList" class="list-unstyled">
+      <li>Loading online users...</li>
+    </ul>
+  </div>
+</div>
 
 <%= link "Edit", to: game_path(@conn, :edit, @game) %>
 <%= link "Back", to: game_path(@conn, :index) %>
