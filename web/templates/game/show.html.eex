@@ -1,3 +1,7 @@
+<script type="text/javascript">
+   var userName = "<%= @user_name %>";
+</script>
+
 <h2>Welcome to game: <%= @game.slug %></h2>
 <div class="row">
   <div class="col-md-12 alert alert-info">
