@@ -3,7 +3,7 @@
 
 // To use Phoenix channels, the first step is to import Socket
 // and connect at the socket path in "lib/my_app/endpoint.ex":
-import {Socket} from "phoenix"
+import {Socket, Presence} from "phoenix"
 
 (function () {
 
@@ -45,5 +45,37 @@ import {Socket} from "phoenix"
   }
 
   channel.on("message:new", message => renderMessage(message))
+
+  let presences = {}
+
+  let listBy = (user, {metas: metas}) => {
+    return {
+      user: user,
+      onlineAt: formatTimestamp(metas[0].online_at)
+    }
+  }
+
+  let userList = document.getElementById("UserList")
+  let render = (presences) => {
+    userList.innerHTML = Presence.list(presences, listBy)
+      .map(presence => `
+        <li>
+          ${presence.user}
+          <br>
+          <small>online since ${presence.onlineAt}</small>
+        </li>
+      `)
+      .join("")
+  }
+
+  channel.on("presence_state", state => {
+    presences = Presence.syncState(presences, state)
+    render(presences)
+  })
+
+  channel.on("presence_diff", diff => {
+    presences = Presence.syncDiff(presences, diff)
+    render(presences)
+  })
 
 })();
