@@ -18,4 +18,32 @@ import {Socket} from "phoenix"
     .receive("ok", resp => { console.log("Joined successfully", resp) })
     .receive("error", resp => { console.log("Unable to join", resp) })
 
+  let messageInput = document.getElementById("NewMessage")
+
+  messageInput.addEventListener("keypress", (e) => {
+    if (e.keyCode == 13 && messageInput.value != "") {
+      channel.push("message:new", messageInput.value)
+      messageInput.value = ""
+    }
+  });
+  
+  let formatTimestamp = (timestamp) => {
+    let date = new Date(timestamp)
+    return date.toLocaleTimeString()
+  }
+
+  let messageList = document.getElementById("MessageList")
+  let renderMessage = (message) => {
+    let messageElement = document.createElement("li")
+    messageElement.innerHTML = `
+      <b>${message.user}</b>
+      <i>${formatTimestamp(message.timestamp)}</i>
+      <p>${message.body}</p>
+    `
+    messageList.appendChild(messageElement)
+    messageList.scrollTop = messageList.scrollHeight;
+  }
+
+  channel.on("message:new", message => renderMessage(message))
+
 })();
