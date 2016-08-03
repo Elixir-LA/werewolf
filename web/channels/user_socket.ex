@@ -2,7 +2,7 @@ defmodule Werewolf.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", Werewolf.RoomChannel
+  channel "rooms:*", Werewolf.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -19,10 +19,10 @@ defmodule Werewolf.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"user" => user}, socket) do
+    {:ok, assign(socket, :user, user)}
   end
-
+  
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
   #     def id(socket), do: "users_socket:#{socket.assigns.user_id}"
