@@ -1,7 +1,7 @@
 defmodule Werewolf.RoomChannel do
   use Werewolf.Web, :channel
 
-  def join("rooms:lobby", _payload, socket) do
+  def join(_room, _payload, socket) do
     {:ok, socket}
   end
 

@@ -13,7 +13,7 @@ import {Socket} from "phoenix"
 
   socket.connect()
 
-  let channel = socket.channel("rooms:lobby", {})
+  let channel = socket.channel(`rooms:${window.gameSlug}`, {})
   channel.join()
     .receive("ok", resp => { console.log("Joined successfully", resp) })
     .receive("error", resp => { console.log("Unable to join", resp) })
