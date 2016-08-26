@@ -11,6 +11,9 @@ defmodule Werewolf do
       supervisor(Werewolf.Endpoint, []),
       # Start the Ecto repository
       supervisor(Werewolf.Repo, []),
+
+      supervisor(Werewolf.Presence, []),
+      
       # Here you could define other workers and supervisors as children
       # worker(Werewolf.Worker, [arg1, arg2, arg3]),
     ]
