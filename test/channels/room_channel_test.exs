@@ -3,15 +3,17 @@ defmodule Werewolf.RoomChannelTest do
 
   alias Werewolf.RoomChannel
   alias Werewolf.UserSocket
+  alias Werewolf.Gameplay
 
   setup do
     {:ok, socket} = connect(UserSocket, %{"user" => "bilbo"})
-    {:ok, _, socket} = subscribe_and_join(socket, RoomChannel, "rooms:lobby")
+    {:ok, gameplay} = Gameplay.Supervisor.create_game("abcd123")
+    {:ok, _, socket} = subscribe_and_join(socket, RoomChannel, "rooms:abcd123")
 
-    {:ok, socket: socket}
+    {:ok, socket: socket, gameplay: gameplay}
   end
 
-  test "message:new broadcasts to room:lobby", %{socket: socket} do
+  test "message:new broadcasts to rooms:abcd123", %{socket: socket} do
     push socket, "message:new", "Hello!"
     assert_broadcast "message:new", %{ body: "Hello!", user: "bilbo"}
   end
