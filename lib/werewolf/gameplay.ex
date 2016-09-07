@@ -7,13 +7,12 @@ defmodule Werewolf.Gameplay do
   ]
 
   # CLIENT
-  def start_link(id) do
-    GenServer.start_link(__MODULE__, id, name: ref(id))
+  def start_link(game_id) do
+    GenServer.start_link(__MODULE__, game_id, name: ref(game_id))
   end
 
   def join(game_id, player_id, pid) do
     try_call(game_id, {:join, player_id, pid})
-    |> IO.inspect
   end
 
   # SERVER
@@ -24,13 +23,14 @@ defmodule Werewolf.Gameplay do
   def handle_call({:join, player_id, pid}, _from, game) do
     updated_players = Enum.dedup(game.players ++ [player_id])
     game = %{game | players: updated_players}
+    |> IO.inspect
     {:reply, {:ok, self}, game}
   end
 
-  defp ref(id), do: {:global, {:game, id}}
+  defp ref(game_id), do: {:global, {:gameplay, game_id}}
 
-  defp try_call(id, message) do
-    case GenServer.whereis(ref(id)) do
+  defp try_call(game_id, message) do
+    case GenServer.whereis(ref(game_id)) do
       nil ->
         {:error, "Game does not exist"}
       pid ->

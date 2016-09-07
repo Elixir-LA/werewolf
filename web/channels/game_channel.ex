@@ -1,9 +1,9 @@
-defmodule Werewolf.RoomChannel do
+defmodule Werewolf.GameChannel do
   use Werewolf.Web, :channel
   alias Werewolf.Presence
   alias Werewolf.Gameplay
 
-  def join("rooms:" <> game_id, _payload, socket) do
+  def join("games:" <> game_id, _payload, socket) do
     player_id = socket.assigns.user
 
     case Gameplay.join(game_id, player_id, socket.channel_pid) do
