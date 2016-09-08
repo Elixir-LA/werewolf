@@ -13,6 +13,7 @@ defmodule Werewolf do
       supervisor(Werewolf.Repo, []),
       supervisor(Werewolf.Presence, []),
       supervisor(Werewolf.Gameplay.Supervisor, []),
+      supervisor(Werewolf.Players.Supervisor, [])
 
       # Here you could define other workers and supervisors as children
       # worker(Werewolf.Worker, [arg1, arg2, arg3]),
