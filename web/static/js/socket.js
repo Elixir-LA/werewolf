@@ -13,7 +13,7 @@ import {Socket, Presence} from "phoenix"
 
   socket.connect()
 
-  let channel = socket.channel(`rooms:${window.gameSlug}`, {})
+  let channel = socket.channel(`games:${window.gameSlug}`, {})
   channel.join()
     .receive("ok", resp => { console.log("Joined successfully", resp) })
     .receive("error", resp => { console.log("Unable to join", resp) })
@@ -26,7 +26,7 @@ import {Socket, Presence} from "phoenix"
       messageInput.value = ""
     }
   });
-  
+
   let formatTimestamp = (timestamp) => {
     let date = new Date(timestamp)
     return date.toLocaleTimeString()

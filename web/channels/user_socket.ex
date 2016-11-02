@@ -2,7 +2,7 @@ defmodule Werewolf.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "rooms:*", Werewolf.RoomChannel
+  channel "games:*", Werewolf.GameChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

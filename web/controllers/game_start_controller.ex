@@ -9,12 +9,18 @@ defmodule Werewolf.GameStartController do
     case Repo.insert(changeset) do
       {:ok, game} ->
         conn
+        |> start_game(game)
         |> put_flash(:info, "Game created successfully.")
         |> put_session(:user_name, user_name)
         |> redirect(to: game_path(conn, :show, game.slug))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
+  end
+
+  defp start_game(conn, game) do
+    Werewolf.Gameplay.Supervisor.create_game(game.slug)
+    conn
   end
 
   defp generate_slug do
