@@ -6,6 +6,7 @@ defmodule Werewolf.GameController do
   alias Werewolf.Game
 
   plug :scrub_params, "game" when action in [:create, :update]
+  plug Werewolf.Plug.Authenticate
 
   def index(conn, _params) do
     games = Repo.all(Game)
@@ -40,7 +41,7 @@ defmodule Werewolf.GameController do
         game = Repo.get!(Game, id)
         case game do
           %Game{} ->
-            render(conn, "show.html", game: game, user_name: user_name)
+            render(conn, "show.html", game: game, current_user: conn.current_user)
           _ ->
             conn
             |> put_status(:not_found)

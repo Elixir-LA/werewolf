@@ -1,17 +1,17 @@
 <script type="text/javascript">
-   var userName = "<%= @user_name %>";
+   var userName = "<%= @current_user && @current_user.name %>";
    var gameSlug = "<%= @game.slug %>";
 </script>
 
 <h2>Welcome to game: <%= @game.slug %></h2>
 <div class="row">
   <div class="col-md-12 alert alert-info">
-    <%= user_message(@user_name) %>
+    <%= user_message(@current_user) %>
   </div>
   
   <div class="col-md-8">
     <h2>Chat Messages</h2>
-    <%= if @user_name do %>
+    <%= if @current_user.name do %>
       <input type="text" id="NewMessage" placeholder="Type and press enter..." class="form-control">
     <% end %>
     <ul id="MessageList" class="list-unstyled"></ul>

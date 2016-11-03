@@ -17,6 +17,14 @@
         <div class="jumbotron">
           <h2>Werewolf</h2>
         </div>
+        <div class="session">
+           <%= if @current_user do %>
+             <%= link("Sign Out", to: session_path(@conn, :delete), class: "btn btn-success pull-right") %>
+           <% else %>
+             <%= link("Sign In", to: session_path(@conn, :new), class: "btn btn-success pull-right") %>
+             <%= link("Sign Up", to: user_path(@conn, :new), class: "btn btn-success pull-right") %>
+           <% end %>
+        </div>
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
