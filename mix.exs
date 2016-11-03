@@ -40,7 +40,8 @@ defmodule Werewolf.Mixfile do
      {:gettext, "~> 0.9"},
      {:hashids, "~> 2.0"},
      {:timex, "~> 2.0"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+    {:comeonin, "~> 2.6"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
