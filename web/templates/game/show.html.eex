@@ -9,12 +9,20 @@
     <%= user_message(@current_user) %>
   </div>
   
-  <div class="col-md-8">
-    <h2>Chat Messages</h2>
-    <%= if @current_user.name do %>
-      <input type="text" id="NewMessage" placeholder="Type and press enter..." class="form-control">
-    <% end %>
-    <ul id="MessageList" class="list-unstyled"></ul>
+  <div class="col-md-8 game-area">
+    <div class="waiting-room"> 
+      <h2>Chat Messages</h2>
+      <%= if @current_user.name do %>
+        <input type="text" id="NewMessage" placeholder="Type and press enter..." class="form-control">
+      <% end %>
+      <ul id="MessageList" class="list-unstyled"></ul>
+    </div>
+    <div class="active-game">
+        <h1>Game is active</h1>
+    </div>
+    <button class="btn" type="button" id="game-toggle">
+      Start Game
+    </button>
   </div>
 
   <div  class="col-md-4">

@@ -18,6 +18,8 @@ import {Socket, Presence} from "phoenix"
     .receive("ok", resp => { console.log("Joined successfully", resp) })
     .receive("error", resp => { console.log("Unable to join", resp) })
 
+// chat room
+
   let messageInput = document.getElementById("NewMessage")
 
   messageInput.addEventListener("keypress", (e) => {
@@ -45,6 +47,19 @@ import {Socket, Presence} from "phoenix"
   }
 
   channel.on("message:new", message => renderMessage(message))
+
+// starting games
+
+  let startGameButton = document.getElementById("game-toggle");
+
+  startGameButton.addEventListener('click', ()=> {
+     channel.push("game:start", "");
+  })
+
+  let gameArea = document.querySelector('.game-area');
+  channel.on("game:start", message => gameArea.classList.add("active"));
+
+// user list (w/ presence)
 
   let presences = {}
 

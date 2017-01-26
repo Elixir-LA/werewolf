@@ -76,3 +76,19 @@ form.link, form.button {
     border-bottom: 0;
   }
 }
+
+.game-area .waiting-room {
+  display: block;
+}
+
+.game-area .active-game {
+  display: none;
+}
+
+.game-area.active .waiting-room {
+  display: none;
+}
+
+.game-area.active .active-game {
+  display: block;
+}

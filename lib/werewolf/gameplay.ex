@@ -3,6 +3,7 @@ defmodule Werewolf.Gameplay do
 
   defstruct [
     id: nil,
+    game_started: false,
     players: []
   ]
 
@@ -15,6 +16,10 @@ defmodule Werewolf.Gameplay do
     try_call(game_id, {:join, player_id, pid})
   end
 
+  def start_game(game_id, pid) do
+    try_call(game_id, {:start_game, pid})
+  end
+
   # SERVER
   def init(id) do
     {:ok, %__MODULE__{id: id}}
@@ -25,6 +30,12 @@ defmodule Werewolf.Gameplay do
     game = %{game | players: updated_players}
     |> IO.inspect
     {:reply, {:ok, self}, game}
+  end
+
+  def handle_call({:start_game, pid}, _from, game) do
+    new_game = %{game | game_started: true}
+    |> IO.inspect
+    {:reply, {:ok, self}, new_game}
   end
 
   defp ref(game_id), do: {:global, {:gameplay, game_id}}
