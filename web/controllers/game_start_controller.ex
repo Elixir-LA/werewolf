@@ -2,8 +2,9 @@ defmodule Werewolf.GameStartController do
   use Werewolf.Web, :controller
 
   alias Werewolf.Game
+  plug Werewolf.Plug.Authenticate
 
-  def create(conn, %{"game" => %{"name" => user_name}}) do
+  def create(conn, _) do
     changeset = Game.changeset(%Game{slug: generate_slug})
 
     case Repo.insert(changeset) do
@@ -11,7 +12,6 @@ defmodule Werewolf.GameStartController do
         conn
         |> start_game(game)
         |> put_flash(:info, "Game created successfully.")
-        |> put_session(:user_name, user_name)
         |> redirect(to: game_path(conn, :show, game.slug))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)

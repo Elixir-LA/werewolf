@@ -3,11 +3,13 @@ defmodule Werewolf.User do
 
   schema "users" do
     field :name, :string
-
+    field :encrypted_password, :string
+    field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
     timestamps
   end
 
-  @required_fields ~w(name)
+  @required_fields ~w(name password password_confirmation)
   @optional_fields ~w()
 
   @doc """
@@ -19,5 +21,9 @@ defmodule Werewolf.User do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> validate_length(:password, min: 6)
+    |> validate_length(:password_confirmation, min: 6)
+    |> validate_confirmation(:password)
+    |> unique_constraint(:name)
   end
 end

@@ -7,6 +7,7 @@ defmodule Werewolf.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Werewolf.Plug.CurrentUser
   end
 
   pipeline :api do
@@ -16,11 +17,15 @@ defmodule Werewolf.Router do
   scope "/", Werewolf do
     pipe_through :browser # Use the default browser stack
 
+
     get "/", PageController, :index
     resources "/games", GameController
     resources "/users", UserController
-    resources "/login", GameStartController, only: [:create]
-    resources "/join", SessionController, only: [:create]
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create 
+    get "/logout", SessionController, :delete
+    resources "/new-game", GameStartController, only: [:create]
+    resources "/join", GameJoinController, only: [:create]
   end
 
   # Other scopes may use custom stacks.

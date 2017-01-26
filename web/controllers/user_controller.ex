@@ -2,6 +2,7 @@ defmodule Werewolf.UserController do
   use Werewolf.Web, :controller
 
   alias Werewolf.User
+  alias Werewolf.Password
 
   plug :scrub_params, "user" when action in [:create, :update]
 
@@ -18,11 +19,12 @@ defmodule Werewolf.UserController do
   def create(conn, %{"user" => user_params}) do
     changeset = User.changeset(%User{}, user_params)
 
-    case Repo.insert(changeset) do
-      {:ok, _user} ->
+    case Password.generate_password_and_store_user(changeset) do
+      {:ok, user} ->
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: user_path(conn, :index))
+        |> put_session(:current_user, user)
+        |> redirect(to: page_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

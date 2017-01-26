@@ -2,8 +2,13 @@ defmodule Werewolf.UserControllerTest do
   use Werewolf.ConnCase
 
   alias Werewolf.User
-  @valid_attrs %{name: "some content"}
-  @invalid_attrs %{}
+  @valid_attrs %{name: "some content", 
+  password: "applesauce",
+  password_confirmation: "applesauce" }
+  @invalid_attrs %{
+  password: "applesauce",
+  password_confirmation: "applesauce"
+  }
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, user_path(conn, :index)
@@ -18,7 +23,7 @@ defmodule Werewolf.UserControllerTest do
   test "creates resource and redirects when data is valid", %{conn: conn} do
     conn = post conn, user_path(conn, :create), user: @valid_attrs
     assert redirected_to(conn) == user_path(conn, :index)
-    assert Repo.get_by(User, @valid_attrs)
+    assert Repo.get_by(User, %{name: "some content"})
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
@@ -48,7 +53,7 @@ defmodule Werewolf.UserControllerTest do
     user = Repo.insert! %User{}
     conn = put conn, user_path(conn, :update, user), user: @valid_attrs
     assert redirected_to(conn) == user_path(conn, :show, user)
-    assert Repo.get_by(User, @valid_attrs)
+    assert Repo.get_by(User, %{name: "some content"})
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
