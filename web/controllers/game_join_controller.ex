@@ -3,7 +3,6 @@ defmodule Werewolf.GameJoinController do
 
   alias Werewolf.Game
   plug Werewolf.Plug.Authenticate
-
   def create(conn, %{"game" => %{"slug" => slug}}) do
     case Repo.get_by(Game, slug: slug) do
       nil ->
@@ -12,7 +11,7 @@ defmodule Werewolf.GameJoinController do
         |> redirect(to: page_path(conn, :index))
       game ->
         conn
-        |> put_flash(:info, "You have joined, #{conn.current_user.name}!")
+        |> put_flash(:info, "You have joined, #{conn.assigns.current_user.name}!")
         |> redirect(to: game_path(conn, :show, game.slug))
     end
   end
