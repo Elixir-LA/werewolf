@@ -2,7 +2,7 @@
 <div class="row marketing">
   <div class="col-lg-6">
     <h4>Create a game</h4>
-    <%= form_for @changeset, game_start_path(@conn, :create), fn _ -> %>
+    <%= form_for @changeset, game_create_path(@conn, :create), fn _ -> %>
     <div class="form-group">
       <%= submit "Create", class: "btn btn-primary" %>
     </div>

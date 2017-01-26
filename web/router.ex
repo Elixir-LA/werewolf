@@ -24,7 +24,7 @@ defmodule Werewolf.Router do
     get "/login", SessionController, :new
     post "/login", SessionController, :create 
     get "/logout", SessionController, :delete
-    resources "/new-game", GameStartController, only: [:create]
+    resources "/new-game", GameCreateController, only: [:create]
     resources "/join", GameJoinController, only: [:create]
   end
 

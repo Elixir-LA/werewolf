@@ -1,4 +1,4 @@
-defmodule Werewolf.GameStartController do
+defmodule Werewolf.GameCreateController do
   use Werewolf.Web, :controller
 
   alias Werewolf.Game
