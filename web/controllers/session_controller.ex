@@ -12,7 +12,7 @@ defmodule Werewolf.SessionController do
     user = if is_nil(user_params["name"]) do
       nil
     else
-      Repo.get_by(User, username: user_params["name"])
+      Repo.get_by(User, name: user_params["name"])
     end
 
     user
