@@ -21,21 +21,32 @@ defmodule Werewolf.Gameplay do
   end
 
   # SERVER
-  def init(id) do
-    {:ok, %__MODULE__{id: id}}
+  def init(game_id, tid) do
+    saved_state = :ets.lookup(tid, :game) |> initial_state(game_id)
+    {:ok, {tid, saved_state}}
   end
 
-  def handle_call({:join, player_id, pid}, _from, game) do
+  def initial_state([], game_id) do
+    %__MODULE__{id: game_id}
+  end
+
+  def initial_state(state, _game_id) do
+    state
+  end
+
+  def handle_call({:join, player_id, _pid}, _from, {tid, game}) do
     updated_players = Enum.dedup(game.players ++ [player_id])
     game = %{game | players: updated_players}
     |> IO.inspect
-    {:reply, {:ok, self}, game}
+    :ets.insert(:game, game)
+    {:reply, {:ok, self}, {tid, game}}
   end
 
-  def handle_call({:start_game, pid}, _from, game) do
+  def handle_call({:start_game, _pid}, _from, {tid, game}) do
     new_game = %{game | game_started: true}
     |> IO.inspect
-    {:reply, {:ok, self}, new_game}
+    :ets.insert(:game, new_game)
+    {:reply, {:ok, self}, {tid, new_game}}
   end
 
   defp ref(game_id), do: {:global, {:gameplay, game_id}}
