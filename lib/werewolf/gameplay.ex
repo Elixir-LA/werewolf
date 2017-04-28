@@ -1,5 +1,7 @@
 defmodule Werewolf.Gameplay do
   use GenServer
+  alias Werewolf.{GameplayHelper}
+  import GameplayHelper
 
   defstruct [
     id: nil,
@@ -48,8 +50,6 @@ defmodule Werewolf.Gameplay do
     :ets.insert(:game, new_game)
     {:reply, {:ok, self}, {tid, new_game}}
   end
-
-  defp ref(game_id), do: {:global, {:gameplay, game_id}}
 
   defp try_call(game_id, message) do
     case GenServer.whereis(ref(game_id)) do
