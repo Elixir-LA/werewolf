@@ -13,7 +13,7 @@ defmodule Werewolf.Gameplay.Supervisor do
   end
 
   def create_game(id) do
-    persister = Supervisor.start_child(__MODULE__, [id])
+    {_, persister} = Supervisor.start_child(__MODULE__, [id])
     [ game_pid | other_children ] = Supervisor.which_children(persister)
     game_pid
   end
