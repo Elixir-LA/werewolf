@@ -7,6 +7,11 @@ defmodule Werewolf.GameCreateControllerTest do
   @valid_attrs %{name: "Albert Gamer"}
   @invalid_attrs %{}
 
+  setup %{conn: conn} do
+    conn = conn |> put_private(:authenticated_current_user, %{name: "Albert Gamer"})
+    {:ok, conn: conn}
+  end
+
   test "#create creates resource and redirects when data is valid", %{conn: conn} do
     conn = post conn, game_create_path(conn, :create), game: @valid_attrs
     game = Game |> Query.last |> Repo.one
@@ -14,9 +19,4 @@ defmodule Werewolf.GameCreateControllerTest do
     assert Repo.get_by(Game, %{slug: game.slug})
   end
 
-  test "#create stores the user name in the session", %{conn: conn} do
-    conn = post conn, game_create_path(conn, :create), game: @valid_attrs
-    session_user_name = conn |> get_session(:user_name)
-    assert session_user_name == "Albert Gamer"
-  end
 end
