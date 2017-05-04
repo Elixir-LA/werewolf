@@ -4,15 +4,15 @@ defmodule Werewolf.Gameplay.Persister do
   import GameplayHelper
 
   def init(game_id) do
-    tid = :ets.new(game_id, [:set])
+    tid = :ets.new(game_id, [:set, :public])
     children = [
-      worker(Gameplay, [[game_id, tid]], restart: :transient)
+      worker(Gameplay, [{tid, game_id}], restart: :transient)
     ]
     supervise(children, strategy: :one_for_one)
   end
 
 
   def start_link(game_id) do
-    Supervisor.start_link(__MODULE__, game_id, name: ref(game_id))
+    Supervisor.start_link(__MODULE__, game_id, name: ref(:persister, game_id))
   end
 end

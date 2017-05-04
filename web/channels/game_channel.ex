@@ -11,9 +11,9 @@ defmodule Werewolf.GameChannel do
   def game_join(socket, game_id) do
     player_id = socket.assigns.user
     case Gameplay.join(game_id, player_id, socket.channel_pid) do
-      {:ok, _pid} ->
+      {:ok, _pid, game_state} ->
         send(self, :after_join)
-        {:ok, socket}
+        {:ok, game_state, socket}
       {:error, reason} ->
         {:error, %{reason: reason}}
     end

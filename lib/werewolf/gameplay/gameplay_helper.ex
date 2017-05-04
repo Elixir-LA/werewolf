@@ -1,3 +1,3 @@
 defmodule Werewolf.GameplayHelper do
-  def ref(game_id), do: {:global, {:gameplay, game_id}}
+  def ref(category, game_id), do: {:global, {category, game_id}}
 end
