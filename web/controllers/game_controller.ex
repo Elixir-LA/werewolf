@@ -1,5 +1,3 @@
-require IEx
-
 defmodule Werewolf.GameController do
   use Werewolf.Web, :controller
 

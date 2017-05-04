@@ -6,6 +6,11 @@ defmodule Werewolf.GameControllerTest do
   @valid_attrs %{slug: "some content"}
   @invalid_attrs %{}
 
+  setup %{conn: conn} do
+    conn = conn |> put_private(:authenticated_current_user, %{name: "Billy"})
+    {:ok, conn: conn}
+  end
+
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, game_path(conn, :index)
     assert html_response(conn, 200) =~ "Listing games"

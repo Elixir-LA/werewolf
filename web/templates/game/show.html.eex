@@ -12,7 +12,7 @@
   <div class="col-md-8 game-area">
     <div class="waiting-room"> 
       <h2>Chat Messages</h2>
-      <%= if @current_user.name do %>
+      <%= if @current_user && @current_user.name do %>
         <input type="text" id="NewMessage" placeholder="Type and press enter..." class="form-control">
       <% end %>
       <ul id="MessageList" class="list-unstyled"></ul>
