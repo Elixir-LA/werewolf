@@ -14,8 +14,14 @@ import {Socket, Presence} from "phoenix"
   socket.connect()
 
   let channel = socket.channel(`games:${window.gameSlug}`, {})
+  let onJoin = (state) => { 
+    if (state.game_started) {
+      startGameUI();
+    }
+  };
+  
   channel.join()
-    .receive("ok", resp => { console.log("Joined successfully", resp) })
+    .receive("ok", resp => { console.log("Joined successfully", resp); onJoin(resp) })
     .receive("error", resp => { console.log("Unable to join", resp) })
 
 // chat room
@@ -50,6 +56,8 @@ import {Socket, Presence} from "phoenix"
 
 // starting games
 
+  let startGameUI = () => gameArea.classList.add("active");
+  
   let startGameButton = document.getElementById("game-toggle");
 
   startGameButton.addEventListener('click', ()=> {
@@ -57,7 +65,7 @@ import {Socket, Presence} from "phoenix"
   })
 
   let gameArea = document.querySelector('.game-area');
-  channel.on("game:start", message => gameArea.classList.add("active"));
+  channel.on("game:start", startGameUI);
 
 // user list (w/ presence)
 

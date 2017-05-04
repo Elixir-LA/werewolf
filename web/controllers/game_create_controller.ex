@@ -19,7 +19,9 @@ defmodule Werewolf.GameCreateController do
   end
 
   defp start_game(conn, game) do
-    Werewolf.Gameplay.Supervisor.create_game(game.slug)
+    game.slug
+    |> String.to_atom
+    |> Werewolf.Gameplay.Supervisor.create_game
     conn
   end
 

@@ -1,5 +1,7 @@
 defmodule Werewolf.Gameplay do
   use GenServer
+  alias Werewolf.{GameplayHelper}
+  import GameplayHelper
 
   defstruct [
     id: nil,
@@ -8,8 +10,8 @@ defmodule Werewolf.Gameplay do
   ]
 
   # CLIENT
-  def start_link(game_id) do
-    GenServer.start_link(__MODULE__, game_id, name: ref(game_id))
+  def start_link({tid, game_id}) do
+    GenServer.start_link(__MODULE__, {tid, game_id}, name: ref(:gameplay, game_id))
   end
 
   def join(game_id, player_id, pid) do
@@ -21,27 +23,34 @@ defmodule Werewolf.Gameplay do
   end
 
   # SERVER
-  def init(id) do
-    {:ok, %__MODULE__{id: id}}
+  def init({tid, game_id}) do
+    saved_state = :ets.lookup(tid, :game) |> initial_state(game_id)
+    {:ok, {tid, saved_state}}
   end
 
-  def handle_call({:join, player_id, pid}, _from, game) do
+  def initial_state([], game_id) do
+    %__MODULE__{id: game_id}
+  end
+
+  def initial_state([{_, state} | _], _game_id) do
+    state
+  end
+
+  def handle_call({:join, player_id, _pid}, _from, {tid, game}) do
     updated_players = Enum.dedup(game.players ++ [player_id])
     game = %{game | players: updated_players}
-    |> IO.inspect
-    {:reply, {:ok, self}, game}
+    :ets.insert(tid, {:game, game})
+    {:reply, {:ok, self, game}, {tid, game}}
   end
 
-  def handle_call({:start_game, pid}, _from, game) do
+  def handle_call({:start_game, _pid}, _from, {tid, game}) do
     new_game = %{game | game_started: true}
-    |> IO.inspect
-    {:reply, {:ok, self}, new_game}
+    :ets.insert(tid, {:game, new_game})
+    {:reply, {:ok, self}, {tid, new_game}}
   end
-
-  defp ref(game_id), do: {:global, {:gameplay, game_id}}
 
   defp try_call(game_id, message) do
-    case GenServer.whereis(ref(game_id)) do
+    case GenServer.whereis(ref(:gameplay, String.to_atom(game_id))) do
       nil ->
         {:error, "Game does not exist"}
       pid ->
