@@ -1,8 +1,8 @@
 language: elixir
 elixir:
-- 1.2.2
+- 1.4.4
 otp_release:
-- 18.2.1
+- 19.1
 notifications:
   slack:
     secure: KVRAv+2ihsMhQhtaR26wbvJZkQq58N89q6BoMdwb0bng8ZfTQizUlZoBGUH0FffshLjkFXdXDZxOZTteFg6LNlumruNY/mR3eYMqrJHuc7Gbv5+CLSIaQ2qrmExn0rV9I6SHV6YuCJXNIBv7BoZe1ncseQ2EdbMpVOq72mr6eYOe1qMWFKhiSg3iO5an3+CXrCF0q18nQ7LDJJeEm8FPTD7ydstXUJWIU9x/D+w1KjEcR4PnbKL7PAUti+18DyxNZA1or9sztelc8c/WpoiQ+fynSAvDg757yutu81odFTMH7zx9K+I/vzs1pP3upJh+o/5voYj6KkQjZUjVDd5ld460a8wGiGeBb4R8qO5hv4ZjVjroCJsR/TbQNQbwCe4mFCe+5FVy+LvK+FAsJtHY6/xPtHZ9f+TBUQoARWjz298Zq2QSMp4l3EiGfQpkJbUcawIsofGaVkkqbQxoby5uxOENizNmPS4EryxZ21LPPvkdb2+nbgwdwO4oLuYJeLxjdV9UOEhYepEFoYDyq5r9dqlRveYDmtCnpdM2wEP0/549UaWXWcqsyPfW3pBsn9x7kct5Dfa67iPzkRqQ+tJHAsiDRBnilrlwWaq8Z9f/18WqzsmawyO+TKgr4bGhBo4/ovVllPLJCKGrOMY2LYeH4IFmCCIv15V0mx639+eGznM=
