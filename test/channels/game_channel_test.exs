@@ -7,7 +7,7 @@ defmodule Werewolf.GameChannelTest do
 
   setup do
     {:ok, socket} = connect(UserSocket, %{"user" => "bilbo"})
-    {:ok, gameplay} = Gameplay.Supervisor.create_game("abcd123")
+    gameplay = Gameplay.Supervisor.create_game(:abcd123)
     {:ok, _, socket} = subscribe_and_join(socket, GameChannel, "games:abcd123")
 
     {:ok, socket: socket, gameplay: gameplay}
